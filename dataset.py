@@ -2,7 +2,7 @@ import numpy as np
 from torch.utils.data import Dataset, DataLoader, default_collate
 
 from arguments.config import Config
-from dataset_preprocess.pair_word_voice import DataType, load_pair
+from dataset_preprocess.pair_word_voice import DataType, load_pair, pair_word_voice
 from voice_preprocess.LFR_features import build_LFR_features
 from voice_preprocess.extract_features import extract_feature
 from voice_preprocess.spec_argument import spec_augment
@@ -56,7 +56,7 @@ class AiShellDataset(Dataset):
 
 
 if __name__ == '__main__':
-    # pair_word_voice()
+    pair_word_voice()
     dataset = AiShellDataset(DataType.Test, Config(
 
     ))
