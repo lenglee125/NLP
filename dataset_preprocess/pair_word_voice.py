@@ -63,6 +63,7 @@ def pair_word_voice(save_path: str = "./"):
         key = line[:16]
         words = list(line[16:].replace(" ", "").strip())
         word_embedding = [word_map.add_word(word) for word in words]
+        word_embedding.append(word_map.get_eos())
         ty, wav = dataset[key]
         pairs[ty.value].append(VoicePair(ty, word_embedding, wav))
 

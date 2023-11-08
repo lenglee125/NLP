@@ -13,6 +13,12 @@ class WordMap(object):
         self.add_word(START_OF_SEQUENCE)
         self.add_word(END_OF_SEQUENCE)
 
+    def get_eos(self):
+        return self.get_digit(END_OF_SEQUENCE)
+
+    def to_on_hot(self, digit: int) -> list:
+        return [0.9999 if i == digit else 0.0001 for i in range(len(self.digit_to_word))]
+
     def add_word(self, word: str) -> int:
         if word not in self.word_to_digit.keys():
             word_id = len(self.digit_to_word)
@@ -36,7 +42,8 @@ class WordMap(object):
 
     def save(self, path: str = "./"):
         with open(os.path.join(path, "word_map.json"), "w", encoding="utf-8") as wm:
-            json.dump({"word2digit": self.word_to_digit, "digit2word": self.digit_to_word}, wm, indent=4,ensure_ascii=False)
+            json.dump({"word2digit": self.word_to_digit, "digit2word": self.digit_to_word}, wm, indent=4,
+                      ensure_ascii=False)
 
     @staticmethod
     def load(path: str = "./"):
@@ -45,3 +52,5 @@ class WordMap(object):
             this = WordMap()
             this.digit_to_word = map["digit2word"]
             this.word_to_digit = map["word2digit"]
+
+            return this
